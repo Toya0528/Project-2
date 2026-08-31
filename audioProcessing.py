@@ -6,7 +6,7 @@ from scipy.io import wavfile
 import soundfile as sf
 
 # 1. Cargar el audio en formato .wav
-audio_file = 'diegoTijo.wav'
+audio_file = 'juanMontoya.wav'
 
 # Intentar cargar con librosa / scipy
 try:
@@ -58,7 +58,30 @@ freq_max = xf[significant_indices[-1]]
 print(f"Frecuencia Dominante: {dominant_frequency:.2f} Hz")
 print(f"Rango de Frecuencias: {freq_min:.2f} Hz - {freq_max:.2f} Hz")
 
+tiempo_original = np.linspace(0, len(y) / sr, num=len(y))
+tiempo_filtrada = np.linspace(0, len(filtered_audio) / sr, num=len(filtered_audio))
+
+plt.figure(figsize=(12, 6))
+
 # 6. Visualización
+
+plt.subplot(2, 1, 1)
+plt.plot(tiempo_original, y, color='b')
+plt.title('Señal Original')
+plt.xlabel('Tiempo (s)')
+plt.ylabel('Amplitud')
+plt.grid(True)
+
+plt.subplot(2, 1, 2)
+plt.plot(tiempo_filtrada, filtered_audio, color='orange')
+plt.title('Señal Procesada (sin silencios)')
+plt.xlabel('Tiempo (s)')
+plt.ylabel('Amplitud')
+plt.grid(True)
+
+plt.tight_layout()
+plt.show()
+
 plt.figure(figsize=(10, 6))
 plt.plot(xf, amplitude, color='g', label='Espectro de Frecuencia')
 plt.axvline(x=dominant_frequency, color='r', linestyle='--', label=f'Frecuencia Dominante: {dominant_frequency:.2f} Hz')
